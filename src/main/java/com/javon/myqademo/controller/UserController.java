@@ -1,5 +1,6 @@
 package com.javon.myqademo.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.javon.myqademo.dao.UserDao;
 import com.javon.myqademo.domain.User;
 import com.javon.myqademo.service.UserService;
@@ -11,6 +12,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpSession;
 
 
 @RestController
@@ -24,25 +27,24 @@ public class UserController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(value = "/{studentNo}", method = RequestMethod.GET)
-    public User findUserByNo(@PathVariable String studentNo){
-        logger.debug("查找studentNo=" + studentNo);
-        return userDao.findByStudentNo(studentNo);
-    }
+//    @RequestMapping(value = "/{studentNo}", method = RequestMethod.GET)
+//    public User findUserByNo(@PathVariable String studentNo){
+//        logger.debug("查找studentNo=" + studentNo);
+//        return userDao.findByStudentNo(studentNo);
+//    }
 
     @RequestMapping(value = "/addUser", method = RequestMethod.POST)
     public User saveUser(User user){
         return userDao.save(user);
     }
 
-    @RequestMapping(value = "/{nickName}", method = RequestMethod.GET)
-    public User findUserByNickName(@PathVariable String nickName){
-        return userDao.findByNickName(nickName);
-    }
+
 
     @RequestMapping(value = "/wxlogin", method = RequestMethod.POST)
     public String login(String code){
-        return HttpClient.wxVerfy(code).toString();
+        System.out.println(code);
+        JSONObject result = HttpClient.wxVerfy(code);
+        return result.toString();
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
