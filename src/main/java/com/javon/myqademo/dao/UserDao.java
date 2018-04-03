@@ -20,8 +20,7 @@ public interface UserDao extends JpaRepository<User, Long>{
 
     void deleteByUserId(Long userId);
 
-    @Query(value = "UPDATE User SET studentNo =?1 and name = ?2 where userId=?3 ", nativeQuery = true)
-    @Modifying
-    User updateOne(String studentNo, String name, String userId);
+    User findByOpenId(String openid);
+
 
 }

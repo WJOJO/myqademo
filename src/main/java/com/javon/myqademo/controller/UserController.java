@@ -8,7 +8,6 @@ import com.javon.myqademo.utils.HttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -40,22 +39,31 @@ public class UserController {
 
 
 
-    @RequestMapping(value = "/wxlogin", method = RequestMethod.POST)
+    @RequestMapping(value = "/findUserByCode", method = RequestMethod.GET)
     public String login(String code){
         System.out.println(code);
         JSONObject result = HttpClient.wxVerfy(code);
-        return result.toString();
+        String openid = result.getString("openid");
+        String sessionKey = result.getString("session_key");
+        User user = userDao.findByOpenId(openid);
+        JSONObject returnResult = new JSONObject();
+        returnResult.fluentPut("sessionKey", sessionKey);
+        if(user == null){
+            returnResult.fluentPut("studentNo", "");
+        }else {
+            returnResult.fluentPut("studentNo", user.getStudentNo());
+        }
+        return returnResult.toString();
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public User register(String encryptedData,String sessionKey,String iv){
+    public User register(String encryptedData,String sessionKey,String iv, String studentNo, String name){
+        System.out.println(sessionKey);
         User user = userService.getUserInfo(encryptedData, sessionKey, iv);
+        user.setStudentNo(studentNo);
+        user.setName(name);
         return userDao.save(user);
     }
 
-    @RequestMapping(value = "/addtionInfo", method = RequestMethod.POST)
-    public void addtionInfo(String studentNo, String name, String userId){
-        userDao.updateOne(studentNo,name,userId);
-    }
 
 }
