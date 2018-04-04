@@ -20,7 +20,7 @@ public class User implements Serializable{
     private String name;
     private String nickName;
     private String avatarUrl;
-    private String gendar;
+    private String gender;
     private String city;
     private String province;
     private String country;
@@ -31,7 +31,8 @@ public class User implements Serializable{
     @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 
-    @OneToOne()
+    @OneToOne(optional=false)
+    @JoinColumn(name="user_id", unique=true, nullable=false, updatable=false)
     private UserScore userScore;
 
     public Long getUserId() {
@@ -66,12 +67,12 @@ public class User implements Serializable{
         this.avatarUrl = avatarUrl;
     }
 
-    public String getGendar() {
-        return gendar;
+    public String getGender() {
+        return gender;
     }
 
-    public void setGendar(String gendar) {
-        this.gendar = gendar;
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getCity() {
@@ -144,5 +145,13 @@ public class User implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public UserScore getUserScore() {
+        return userScore;
+    }
+
+    public void setUserScore(UserScore userScore) {
+        this.userScore = userScore;
     }
 }

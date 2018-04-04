@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 
 @RestController
@@ -63,6 +64,11 @@ public class UserController {
         user.setStudentNo(studentNo);
         user.setName(name);
         return userDao.save(user);
+    }
+
+    @RequestMapping(value = "/all", method = RequestMethod.GET)
+    public List<User> findAllUser(){
+        return userDao.findAllBy();
     }
 
 

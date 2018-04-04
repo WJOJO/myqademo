@@ -14,13 +14,8 @@ public interface UserDao extends JpaRepository<User, Long>{
 
     User findByStudentNo(String studentNo);
 
-    List<User> queryAllByCreateTimeAfter(Date createTime);
-
-    User findByNickName(String nickName);
-
-    void deleteByUserId(Long userId);
-
     User findByOpenId(String openid);
 
+    List<User> findAllBy();
 
 }
