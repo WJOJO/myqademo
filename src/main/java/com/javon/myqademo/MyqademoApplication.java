@@ -9,4 +9,6 @@ public class MyqademoApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MyqademoApplication.class, args);
 	}
+
+
 }

@@ -16,6 +16,5 @@ public interface UserDao extends JpaRepository<User, Long>{
 
     User findByOpenId(String openid);
 
-    List<User> findAllBy();
 
 }

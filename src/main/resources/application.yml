@@ -21,3 +21,13 @@ spring:
         dialect: org.hibernate.dialect.MySQL5Dialect
         hbm2ddl:
           auto: update
+server:
+    port: 8443
+    session-timeout: 60
+    tomcat:
+      max-threads: 300
+      uri-encoding: UTF-8
+    ssl:
+      key-store: classpath:214565831350244.pfx
+      key-store-password: 214565831350244
+      keyStoreType: PKCS12

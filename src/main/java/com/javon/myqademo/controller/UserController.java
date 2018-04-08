@@ -68,7 +68,7 @@ public class UserController {
 
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<User> findAllUser(){
-        return userDao.findAllBy();
+        return userDao.findAll();
     }
 
 
