@@ -18,4 +18,5 @@ public interface UserDao extends JpaRepository<User, Long>{
 
     List<User> findAllBy();
 
+
 }

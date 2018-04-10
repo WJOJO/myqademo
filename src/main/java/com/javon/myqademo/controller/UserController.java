@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.servlet.http.HttpSession;
 import java.util.List;
 
 
@@ -69,6 +68,13 @@ public class UserController {
     @RequestMapping(value = "/all", method = RequestMethod.GET)
     public List<User> findAllUser(){
         return userDao.findAllBy();
+    }
+
+
+    @RequestMapping(value = "/getScore", method = RequestMethod.GET)
+    public User getScore(String studentNo){
+        User user = userDao.findByStudentNo(studentNo);
+        return user;
     }
 
 
